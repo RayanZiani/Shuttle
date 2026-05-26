@@ -24,7 +24,7 @@ if (-not (Test-Path $propsFile)) {
 $org = (Select-String -Path $propsFile -Pattern '^sonar\.organization=(.+)$').Matches.Groups[1].Value.Trim()
 $key = (Select-String -Path $propsFile -Pattern '^sonar\.projectKey=(.+)$').Matches.Groups[1].Value.Trim()
 
-if ($org -match '^<' -or $key -match '^<') {
+if ([string]::IsNullOrWhiteSpace($org) -or [string]::IsNullOrWhiteSpace($key) -or $org -match '^<') {
     Write-Host "ERREUR : complétez sonar.organization et sonar.projectKey dans sonar-project.properties" -ForegroundColor Red
     exit 1
 }
