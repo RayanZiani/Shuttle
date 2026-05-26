@@ -1,11 +1,17 @@
 # Lance l'analyse SonarCloud (depuis le dossier Shuttle)
-# Prérequis : sonar-scanner dans le PATH, variable SONAR_TOKEN définie
+# Token : variable SONAR_TOKEN ou fichier ../.sonar-token (non versionné)
 
 $ErrorActionPreference = "Stop"
 
+$tokenFile = Join-Path $PSScriptRoot "..\.sonar-token"
+if (-not $env:SONAR_TOKEN -and (Test-Path $tokenFile)) {
+    $env:SONAR_TOKEN = (Get-Content $tokenFile -Raw).Trim()
+}
+
 if (-not $env:SONAR_TOKEN) {
-    Write-Host "ERREUR : définissez votre token SonarCloud :" -ForegroundColor Red
-    Write-Host '  $env:SONAR_TOKEN = "votre_token"' -ForegroundColor Yellow
+    Write-Host "ERREUR : token SonarCloud manquant." -ForegroundColor Red
+    Write-Host "  1. https://sonarcloud.io/account/security -> Generate Token" -ForegroundColor Yellow
+    Write-Host '  2. $env:SONAR_TOKEN = "..."  OU  coller le token dans .sonar-token' -ForegroundColor Yellow
     exit 1
 }
 
@@ -15,8 +21,8 @@ if (-not (Test-Path $propsFile)) {
     exit 1
 }
 
-$org = (Select-String -Path $propsFile -Pattern '^sonar\.organization=(.+)$').Matches.Groups[1].Value
-$key = (Select-String -Path $propsFile -Pattern '^sonar\.projectKey=(.+)$').Matches.Groups[1].Value
+$org = (Select-String -Path $propsFile -Pattern '^sonar\.organization=(.+)$').Matches.Groups[1].Value.Trim()
+$key = (Select-String -Path $propsFile -Pattern '^sonar\.projectKey=(.+)$').Matches.Groups[1].Value.Trim()
 
 if ($org -match '^<' -or $key -match '^<') {
     Write-Host "ERREUR : complétez sonar.organization et sonar.projectKey dans sonar-project.properties" -ForegroundColor Red
@@ -24,25 +30,29 @@ if ($org -match '^<' -or $key -match '^<') {
 }
 
 $scanner = Get-Command sonar-scanner -ErrorAction SilentlyContinue
-if (-not $scanner) {
-    $localScanner = Join-Path $PSScriptRoot "..\tools\sonar-scanner-6.2.1.4610-windows-x64\bin\sonar-scanner.bat"
-    if (Test-Path $localScanner) {
-        $scanner = $localScanner
-    } else {
-        Write-Host "ERREUR : installez sonar-scanner ou placez-le dans tools/" -ForegroundColor Red
+if ($scanner) {
+    $scannerPath = $scanner.Source
+} else {
+    $scannerPath = Join-Path $PSScriptRoot "..\tools\sonar-scanner-6.2.1.4610-windows-x64\bin\sonar-scanner.bat"
+    if (-not (Test-Path $scannerPath)) {
+        Write-Host "ERREUR : sonar-scanner introuvable (tools/ ou PATH)" -ForegroundColor Red
         exit 1
     }
-} else {
-    $scanner = $scanner.Source
 }
 
+# PowerShell interprète mal -Dsonar.xxx sans guillemets
+$args = @(
+    "-Dsonar.organization=$org",
+    "-Dsonar.projectKey=$key",
+    "-Dsonar.host.url=https://sonarcloud.io",
+    "-Dsonar.token=$($env:SONAR_TOKEN)"
+)
+
+Write-Host "Analyse SonarCloud : org=$org project=$key" -ForegroundColor Cyan
 Push-Location $PSScriptRoot
 try {
-    & $scanner `
-        -Dsonar.organization=$org `
-        -Dsonar.projectKey=$key `
-        -Dsonar.host.url=https://sonarcloud.io `
-        -Dsonar.token=$env:SONAR_TOKEN
+    & $scannerPath @args
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 finally {
     Pop-Location
