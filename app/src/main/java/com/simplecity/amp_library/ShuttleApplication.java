@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -375,18 +374,5 @@ public class ShuttleApplication extends DaggerApplication {
                     getContentResolver().applyBatch(MediaStore.AUTHORITY, new ArrayList<>(contentProviderOperations));
                 })
                 .flatMapCompletable(songs -> Completable.complete());
-    }
-
-    private void enableStrictMode() {
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build());
-
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .penaltyFlashScreen()
-                .build());
     }
 }

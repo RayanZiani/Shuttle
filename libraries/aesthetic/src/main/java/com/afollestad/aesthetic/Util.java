@@ -44,7 +44,8 @@ public final class Util {
         Field field = clazz.getDeclaredField(name);
         field.setAccessible(true);
         return field;
-      } catch (NoSuchFieldException ignored){
+      } catch (NoSuchFieldException ignored) {
+        // Field name not present on this API level; try next candidate.
       }
     }
 

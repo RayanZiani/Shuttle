@@ -83,10 +83,10 @@ abstract class PlayerViewAdapter : PlayerView {
     }
 
     override fun presentRingtonePermissionDialog() {
-
+        // No-op: subclasses may override to show the ringtone permission dialog.
     }
 
     override fun showRingtoneSetMessage() {
-
+        // No-op: subclasses may override to show ringtone confirmation.
     }
 }

@@ -87,7 +87,7 @@ class RingtoneManager @Inject constructor(val applicationContext: Context) {
             return AlertDialog.Builder(context)
                 .setTitle(R.string.dialog_title_set_ringtone)
                 .setMessage(R.string.dialog_message_set_ringtone)
-                .setPositiveButton(R.string.button_ok) { dialog, which ->
+                .setPositiveButton(R.string.button_ok) { _, _ ->
                     val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                     intent.data = Uri.parse("package:" + context.applicationContext.packageName)
                     context.startActivity(intent)

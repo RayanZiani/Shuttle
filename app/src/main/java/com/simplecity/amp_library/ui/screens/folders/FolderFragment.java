@@ -666,7 +666,6 @@ public class FolderFragment extends BaseFragment implements
 
         @Override
         public void onPlaybackFailed() {
-            // Todo: Improve error message
             Toast.makeText(getContext(), R.string.emptyplaylist, Toast.LENGTH_SHORT).show();
         }
 
