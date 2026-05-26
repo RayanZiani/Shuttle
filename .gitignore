@@ -1,3 +1,7 @@
+# SonarCloud (local analysis output — never commit tokens)
+.scannerwork/
+.sonar/
+
 # Built application files
 *.apk
 *.ap_
