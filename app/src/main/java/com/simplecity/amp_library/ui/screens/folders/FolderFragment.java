@@ -154,9 +154,6 @@ public class FolderFragment extends BaseFragment implements
     SettingsManager settingsManager;
 
     @Inject
-    AnalyticsManager analyticsManager;
-
-    @Inject
     RingtoneManager ringtoneManager;
 
     @Inject
@@ -341,15 +338,15 @@ public class FolderFragment extends BaseFragment implements
             case SortManager.SortFiles.TRACK_NAME:
                 menu.findItem(R.id.sort_files_track_name).setChecked(true);
                 break;
+            default:
+                break;
         }
 
-        switch (settingsManager.getFolderBrowserFoldersSortOrder()) {
-            case SortManager.SortFolders.DEFAULT:
-                menu.findItem(R.id.sort_folder_default).setChecked(true);
-                break;
-            case SortManager.SortFolders.COUNT:
-                menu.findItem(R.id.sort_folder_count).setChecked(true);
-                break;
+        int foldersSortOrder = settingsManager.getFolderBrowserFoldersSortOrder();
+        if (foldersSortOrder == SortManager.SortFolders.DEFAULT) {
+            menu.findItem(R.id.sort_folder_default).setChecked(true);
+        } else if (foldersSortOrder == SortManager.SortFolders.COUNT) {
+            menu.findItem(R.id.sort_folder_count).setChecked(true);
         }
 
         menu.findItem(R.id.folder_home_dir).setIcon(fileBrowser.getHomeDirIcon());

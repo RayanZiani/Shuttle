@@ -52,8 +52,8 @@ public class QCircleActivity extends BaseActivity {
     // [END] QuickCircle info.
 
     // -------------------------------------------------------------------------------
-    private final boolean DEBUG = true;
-    private final String TAG = "QCircleActivity";
+    private static final boolean DEBUG = true;
+    private static final String TAG = "QCircleActivity";
     int mQuickCoverState = 0;
     Context mContext;
     private Window win = null;
@@ -252,11 +252,7 @@ public class QCircleActivity extends BaseActivity {
         if (pauseBtn == null) {
             return;
         }
-        if (MusicServiceConnectionUtils.serviceBinder != null && mediaManager.isPlaying()) {
-
-        } else {
-
-        }
+        // Pause button artwork is updated elsewhere when playback state changes.
     }
 
     private void initializeBackButton() {

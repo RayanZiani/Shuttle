@@ -17,7 +17,7 @@ import com.simplecity.amp_library.R.string
 import com.simplecity.amp_library.model.AlbumArtist
 import com.simplecity.amp_library.model.Playlist
 import com.simplecity.amp_library.model.Song
-import com.simplecity.amp_library.ui.adapters.SectionedAdapter
+import com.simplecity.amp_library.ui.adapters.FastScrollSectionedAdapter
 import com.simplecity.amp_library.ui.adapters.ViewType
 import com.simplecity.amp_library.ui.common.BaseFragment
 import com.simplecity.amp_library.ui.dialog.ArtistBiographyDialog
@@ -58,7 +58,7 @@ class AlbumArtistListFragment :
 
     private lateinit var layoutManager: GridLayoutManager
 
-    private lateinit var adapter: SectionedAdapter
+    private lateinit var adapter: FastScrollSectionedAdapter
 
     private lateinit var spanSizeLookup: SpanSizeLookup
 
@@ -97,7 +97,7 @@ class AlbumArtistListFragment :
 
         setHasOptionsMenu(true)
 
-        adapter = SectionedAdapter()
+        adapter = FastScrollSectionedAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

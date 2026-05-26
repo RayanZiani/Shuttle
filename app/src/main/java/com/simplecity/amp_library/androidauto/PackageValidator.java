@@ -115,14 +115,13 @@ public class PackageValidator {
         if (validCallers == null) {
             Log.v(TAG, "Signature for caller " + callingPackage + " is not valid: \n" + signature);
             if (mValidCertificates.isEmpty()) {
-                Log.w(TAG, String.format(
-                        "The list of valid certificates is empty. Either your file res/xml/allowed_media_browser_callers.xml is empty or there was an error while reading it. Check previous log messages."));
+                Log.w(TAG, "The list of valid certificates is empty. Either your file res/xml/allowed_media_browser_callers.xml is empty or there was an error while reading it. Check previous log messages.");
             }
             return false;
         }
 
         // Check if the package name is valid for the certificate:
-        StringBuffer expectedPackages = new StringBuffer();
+        StringBuilder expectedPackages = new StringBuilder();
         for (CallerInfo info : validCallers) {
             if (callingPackage.equals(info.packageName)) {
                 Log.v(TAG, String.format("Valid caller: %s  package=%s release=%s", info.name, info.packageName, info.release));
@@ -170,7 +169,7 @@ public class PackageValidator {
         return null;
     }
 
-    private final static class CallerInfo {
+    private static final class CallerInfo {
         final String name;
         final String packageName;
         final boolean release;

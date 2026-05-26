@@ -53,7 +53,7 @@ public class Song implements
     public int discNumber;
     public boolean isPodcast;
     public String path;
-    public long bookMark;
+    long bookMark;
 
     public String albumArtistName;
 

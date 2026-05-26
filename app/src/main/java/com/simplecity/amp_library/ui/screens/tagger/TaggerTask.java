@@ -2,6 +2,7 @@ package com.simplecity.amp_library.ui.screens.tagger;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.os.ParcelFileDescriptor;
 import android.support.v4.provider.DocumentFile;
 import com.simplecity.amp_library.model.TagUpdate;
@@ -86,6 +87,7 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
     }
 
     @Override
+    @SuppressWarnings("java:S135")
     protected Boolean doInBackground(Object... params) {
 
         boolean success = false;
@@ -169,7 +171,9 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
                 if (tempFiles != null && tempFiles.size() != 0) {
                     for (int j = tempFiles.size() - 1; j >= 0; j--) {
                         File file = tempFiles.get(j);
-                        file.delete();
+                        if (!file.delete()) {
+                            Log.w("TaggerTask", "Failed to delete temp file: " + file.getPath());
+                        }
                         tempFiles.remove(j);
                     }
                 }

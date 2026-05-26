@@ -38,7 +38,7 @@ public final class Util {
     LayoutInflaterCompat.setFactory(li, new InflationInterceptor());
   }
 
-  static Field findField(Class clazz, String... names) throws NoSuchFieldException{
+  static Field findField(Class<?> clazz, String... names) throws NoSuchFieldException{
     for (String name : names) {
       try {
         Field field = clazz.getDeclaredField(name);

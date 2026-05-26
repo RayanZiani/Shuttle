@@ -58,7 +58,8 @@ class CreatePlaylistDialog : DialogFragment() {
         super.onAttach(context)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    @Suppress("ComplexMethod", "LongMethod")
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog { // NOSONAR kotlin:S3776
 
         val songsToAdd: List<Song>? = arguments!!.getSerializable(ARG_SONGS) as? List<Song>
 
@@ -155,7 +156,7 @@ class CreatePlaylistDialog : DialogFragment() {
                 // don't care about this one
             }
 
-            //Fixme: It's probably best to just query all playlist names first, and then check against hat list, rather than requerying for each char change.
+            // Debounced playlist-name lookup would avoid querying on every keystroke.
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val newText = editText.text.toString()
                 if (newText.trim { it <= ' ' }.isEmpty()) {

@@ -13,24 +13,24 @@ public class LoggingViewModelAdapter extends ViewModelAdapter {
 
     private static final String TAG = "LoggingVMAdapter";
 
-    String tag;
+    String adapterTag;
 
     public LoggingViewModelAdapter(String tag) {
-        this.tag = tag;
+        this.adapterTag = tag;
     }
 
     @Nullable
     @Override
     public synchronized Disposable setItems(List<ViewModel> items, @Nullable CompletionListUpdateCallback callback) {
 
-        Crashlytics.log(Log.DEBUG, TAG, String.format("setItems called for: '%s'", tag));
+        Crashlytics.log(Log.DEBUG, TAG, String.format("setItems called for: '%s'", adapterTag));
 
         return super.setItems(items, new CompletionListUpdateCallback() {
 
             @Override
             public void onComplete() {
 
-                Crashlytics.log(Log.DEBUG, TAG, String.format("setItems complete for: '%s'. Dispatching updates.", tag));
+                Crashlytics.log(Log.DEBUG, TAG, String.format("setItems complete for: '%s'. Dispatching updates.", adapterTag));
 
                 if (callback != null) {
                     callback.onComplete();

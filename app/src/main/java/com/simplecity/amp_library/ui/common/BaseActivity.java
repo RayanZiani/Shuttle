@@ -42,7 +42,7 @@ public abstract class BaseActivity extends AestheticActivity implements
         ServiceConnection,
         BillingManager.BillingUpdatesListener {
 
-    private Boolean bindInFlight = false;
+    private boolean bindInFlight = false;
 
     @Nullable
     private MusicServiceConnectionUtils.ServiceToken token;

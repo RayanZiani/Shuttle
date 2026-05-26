@@ -11,7 +11,7 @@ import com.simplecity.amp_library.ui.adapters.ViewType;
 import com.simplecity.amp_library.utils.PlaceholderProvider;
 import com.simplecity.amp_library.utils.SettingsManager;
 
-public class SuggestedSongView extends MultiItemView<SuggestedSongView.ViewHolder, Song> {
+public class SuggestedSongView extends MultiItemView<SuggestedSongView.ViewHolder> {
 
     public interface ClickListener {
 

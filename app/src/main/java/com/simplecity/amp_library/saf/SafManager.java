@@ -201,6 +201,14 @@ public class SafManager {
         return null;
     }
 
+    private static String canonicalizePath(String path) {
+        try {
+            return new File(path).getCanonicalPath();
+        } catch (IOException e) {
+            return path;
+        }
+    }
+
     /**
      * @return a list of potential SD Card paths
      */
@@ -216,12 +224,7 @@ public class SafManager {
                         if (index < 0) {
                             Log.w(TAG, "Unexpected external file dir: " + file.getAbsolutePath());
                         } else {
-                            String path = file.getAbsolutePath().substring(0, index);
-                            try {
-                                path = new File(path).getCanonicalPath();
-                            } catch (IOException e) {
-                                // Keep non-canonical path.
-                            }
+                            String path = canonicalizePath(file.getAbsolutePath().substring(0, index));
                             paths.add(path);
                         }
                     }

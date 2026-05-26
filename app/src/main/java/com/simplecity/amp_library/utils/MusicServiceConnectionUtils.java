@@ -61,7 +61,7 @@ public class MusicServiceConnectionUtils {
 
         @Override
         public void onServiceConnected(final ComponentName className, final IBinder service) {
-            serviceBinder = (LocalBinder) service;
+            MusicServiceConnectionUtils.serviceBinder = (LocalBinder) service;
 
             if (callback != null) {
                 callback.onServiceConnected(className, service);

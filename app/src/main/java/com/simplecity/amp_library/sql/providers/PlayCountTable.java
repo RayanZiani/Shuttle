@@ -72,12 +72,12 @@ public class PlayCountTable extends SQLiteOpenHelper {
             //Add rows from count info table
             try {
                 String COUNT_INFO_DATABASE = "count_info.db";
-                String PATH_COUNT_INFO = applicationContext.getDatabasePath(COUNT_INFO_DATABASE).toString();
+                String pathCountInfo = applicationContext.getDatabasePath(COUNT_INFO_DATABASE).toString();
                 String TABLE_COUNT_INFO = "COUNT_INFO";
                 String COUNT_INFO_COLUMN_ID = "_id";
                 String COUNT_INFO_COLUMN_TIME_PLAYED = "time_played";
 
-                db.execSQL("ATTACH '" + PATH_COUNT_INFO + "' AS " + TABLE_COUNT_INFO + "; ");
+                db.execSQL("ATTACH '" + pathCountInfo + "' AS " + TABLE_COUNT_INFO + "; ");
 
                 //Now we have to begin a new transaction
                 db.beginTransaction();

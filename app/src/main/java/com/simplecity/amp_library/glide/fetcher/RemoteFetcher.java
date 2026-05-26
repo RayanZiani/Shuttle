@@ -6,7 +6,7 @@ import com.simplecity.amp_library.model.ArtworkProvider;
 
 public class RemoteFetcher extends HttpUrlFetcher {
 
-    String TAG = "RemoteFetcher";
+    private static final String tag = "RemoteFetcher";
 
     public RemoteFetcher(ArtworkProvider artworkProvider) {
         super(new GlideUrl(artworkProvider.getRemoteArtworkUrl()));

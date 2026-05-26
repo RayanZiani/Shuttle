@@ -53,7 +53,7 @@ public class SuggestedHeaderView extends BaseViewModel<SuggestedHeaderView.ViewH
 
         holder.titleOne.setText(suggestedHeader.title);
         holder.titleTwo.setText(suggestedHeader.subtitle);
-        if (suggestedHeader.subtitle == null || suggestedHeader.subtitle.length() == 0) {
+        if (android.text.TextUtils.isEmpty(suggestedHeader.subtitle)) {
             holder.titleTwo.setVisibility(View.GONE);
         } else {
             holder.titleTwo.setVisibility(View.VISIBLE);

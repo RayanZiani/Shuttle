@@ -24,7 +24,7 @@ class DummyNotificationHelper {
     // See https://github.com/aosp-mirror/platform_frameworks_base/blob/e80b45506501815061b079dcb10bf87443bd385d/services/core/java/com/android/server/am/ActiveServices.java
     // (SERVICE_START_FOREGROUND_TIMEOUT = 10*1000)
     //
-    private static int NOTIFICATION_STOP_DELAY = 12500;
+    private static final int notificationStopDelay = 12500;
 
     @Nullable
     private Disposable dummyNotificationDisposable = null;
@@ -34,8 +34,7 @@ class DummyNotificationHelper {
     }
 
     void showDummyNotification(Service service) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (!isShowingDummyNotification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isShowingDummyNotification) {
                 NotificationManager notificationManager = service.getSystemService(NotificationManager.class);
                 NotificationChannel channel = notificationManager.getNotificationChannel(CHANNEL_ID);
                 if (channel == null) {
@@ -61,13 +60,12 @@ class DummyNotificationHelper {
                 }
 
                 isShowingDummyNotification = true;
-            }
         }
 
         if (dummyNotificationDisposable != null) {
             dummyNotificationDisposable.dispose();
         }
-        dummyNotificationDisposable = Completable.timer(NOTIFICATION_STOP_DELAY, TimeUnit.MILLISECONDS).doOnComplete(() -> removeDummyNotification(service)).subscribe();
+        dummyNotificationDisposable = Completable.timer(notificationStopDelay, TimeUnit.MILLISECONDS).doOnComplete(() -> removeDummyNotification(service)).subscribe();
     }
 
     void teardown(Service service) {

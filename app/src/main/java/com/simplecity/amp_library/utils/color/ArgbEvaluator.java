@@ -3,6 +3,7 @@ package com.simplecity.amp_library.utils.color;
 import android.animation.TypeEvaluator;
 
 public class ArgbEvaluator implements TypeEvaluator {
+        // Singleton: stateless evaluator reused across animators (same pattern as platform ArgbEvaluator).
         private static final ArgbEvaluator sInstance = new ArgbEvaluator();
 
         /**

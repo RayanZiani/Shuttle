@@ -1,15 +1,19 @@
 package com.simplecity.amp_library.playback.constants;
 
-public interface MediaButtonCommand {
-    String CMD_NAME = "command";
-    String TOGGLE_PAUSE = "togglepause";
-    String STOP = "stop";
-    String PAUSE = "pause";
-    String PLAY = "play";
-    String PREVIOUS = "previous";
-    String NEXT = "next";
-    String TOGGLE_FAVORITE = "togglefavorite";
-    String FROM_MEDIA_BUTTON = "frommediabutton";
+public final class MediaButtonCommand {
 
-    String FORCE_PREVIOUS = "force";
+    private MediaButtonCommand() {
+    }
+
+    public static final String CMD_NAME = "command";
+    public static final String TOGGLE_PAUSE = "togglepause";
+    public static final String STOP = "stop";
+    public static final String PAUSE = "pause";
+    public static final String PLAY = "play";
+    public static final String PREVIOUS = "previous";
+    public static final String NEXT = "next";
+    public static final String TOGGLE_FAVORITE = "togglefavorite";
+    public static final String FROM_MEDIA_BUTTON = "frommediabutton";
+
+    public static final String FORCE_PREVIOUS = "force";
 }

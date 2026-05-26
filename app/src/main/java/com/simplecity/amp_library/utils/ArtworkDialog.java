@@ -41,6 +41,7 @@ public class ArtworkDialog {
 
     }
 
+    @SuppressWarnings("java:S3776")
     public static MaterialDialog build(Context context, ArtworkProvider artworkProvider) {
 
         @SuppressLint("InflateParams")

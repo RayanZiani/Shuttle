@@ -263,6 +263,7 @@ public class EqualizerFragment extends BaseFragment implements
                         for (int i = 0; i < eqViewElementIds.length; i++) {
                             if (eqViewElementIds[i][1] == seekbarId) {
                                 band = i;
+                                break;
                             }
                         }
 

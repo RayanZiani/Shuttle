@@ -15,7 +15,7 @@ import com.bumptech.glide.RequestManager
 import com.simplecity.amp_library.R
 import com.simplecity.amp_library.model.Playlist
 import com.simplecity.amp_library.model.Song
-import com.simplecity.amp_library.ui.adapters.SectionedAdapter
+import com.simplecity.amp_library.ui.adapters.FastScrollSectionedAdapter
 import com.simplecity.amp_library.ui.common.BaseFragment
 import com.simplecity.amp_library.ui.dialog.DeleteDialog
 import com.simplecity.amp_library.ui.dialog.SongInfoDialog
@@ -54,7 +54,7 @@ class SongListFragment :
     SongListContract.View,
     SongMenuContract.View {
 
-    private val adapter = SectionedAdapter()
+    private val adapter = FastScrollSectionedAdapter()
 
     private val shuffleView = ShuffleView()
 

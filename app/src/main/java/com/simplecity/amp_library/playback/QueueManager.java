@@ -43,7 +43,7 @@ public class QueueManager {
         int LAST = 1;
     }
 
-    private final char hexDigits[] = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private final char[] hexDigits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     @NonNull
     List<QueueItem> playlist = new ArrayList<>();
@@ -407,9 +407,9 @@ public class QueueManager {
                     if (queueList != null) {
                         playlist = deserializePlaylist(queueList, queueItems);
 
-                        final int queuePosition = playbackSettingsManager.getQueuePosition();
+                        final int savedQueuePosition = playbackSettingsManager.getQueuePosition();
 
-                        if (queuePosition < 0 || queuePosition >= playlist.size()) {
+                        if (savedQueuePosition < 0 || savedQueuePosition >= playlist.size()) {
                             // The saved playlist is bogus, discard it
                             playlist.clear();
                             queueReloading = false;
@@ -417,7 +417,7 @@ public class QueueManager {
                             return;
                         }
 
-                        QueueManager.this.queuePosition = queuePosition;
+                        QueueManager.this.queuePosition = savedQueuePosition;
 
                         if (repeatMode != RepeatMode.ALL && repeatMode != RepeatMode.ONE) {
                             repeatMode = RepeatMode.OFF;
@@ -522,7 +522,9 @@ public class QueueManager {
             }
         });
 
-        return QueueItemKt.toQueueItems(new ArrayList<>(map.values()));
+        List<QueueItem> queueItemsResult = QueueItemKt.toQueueItems(new ArrayList<>(map.values()));
+        ids.clear();
+        return queueItemsResult;
     }
 
     void makeShuffleList() {

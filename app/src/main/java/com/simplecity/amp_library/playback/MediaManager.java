@@ -28,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class MediaManager {
 
+    private static final Random RANDOM = new Random();
+
     public interface Defs {
 
         int ADD_TO_PLAYLIST = 0;
@@ -91,7 +93,7 @@ public class MediaManager {
         analyticsManager.dropBreadcrumb(TAG, "shuffleAll()");
         setShuffleMode(QueueManager.ShuffleMode.ON);
         if (!songs.isEmpty()) {
-            playAll(songs, new Random().nextInt(songs.size()), false, onEmpty);
+            playAll(songs, RANDOM.nextInt(songs.size()), false, onEmpty);
         }
     }
 

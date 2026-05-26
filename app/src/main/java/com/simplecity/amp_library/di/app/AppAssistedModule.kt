@@ -5,4 +5,5 @@ import dagger.Module
 
 @AssistedModule
 @Module(includes = [AssistedInject_AppAssistedModule::class])
+@Suppress("ConvertAbstractClassToInterface") // Abstract class required by Dagger AssistedInject code generation.
 abstract class AppAssistedModule

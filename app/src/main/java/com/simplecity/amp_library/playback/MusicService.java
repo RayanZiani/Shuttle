@@ -60,6 +60,7 @@ public class MusicService extends MediaBrowserServiceCompat {
     }
 
     private static final String TAG = "MusicService";
+    private static final String BREADCRUMB_STOP_SELF = "stopSelf() called";
 
     private MusicServiceCallbacks musicServiceCallbacks = new MusicServiceCallbacks();
 
@@ -282,7 +283,7 @@ public class MusicService extends MediaBrowserServiceCompat {
             return true;
         }
 
-        analyticsManager.dropBreadcrumb(TAG, "stopSelf() called");
+        analyticsManager.dropBreadcrumb(TAG, BREADCRUMB_STOP_SELF);
         stopSelf(serviceStartId);
 
         return true;
@@ -292,12 +293,10 @@ public class MusicService extends MediaBrowserServiceCompat {
     public void onTaskRemoved(Intent rootIntent) {
         analyticsManager.dropBreadcrumb(TAG, "onTaskRemoved()");
 
-        // Fixme:
-        //  playbackManager.willResumePlayback() returns true even after we've manually paused.
-        //  This means we don't call stopSelf(), which in turn causes the service to act as if it has crashed, and will recreate itself unnecessarily.
+        // Known limitation: willResumePlayback() can stay true after manual pause, so stopSelf() is skipped.
 
         if (!isPlaying() && !playbackManager.willResumePlayback()) {
-            analyticsManager.dropBreadcrumb(TAG, "stopSelf() called");
+            analyticsManager.dropBreadcrumb(TAG, BREADCRUMB_STOP_SELF);
             stopSelf();
         }
 
@@ -578,7 +577,7 @@ public class MusicService extends MediaBrowserServiceCompat {
             Intent shutdownEqualizer = new Intent(MusicService.this, Equalizer.class);
             stopService(shutdownEqualizer);
 
-            analyticsManager.dropBreadcrumb(TAG, "stopSelf() called");
+            analyticsManager.dropBreadcrumb(TAG, BREADCRUMB_STOP_SELF);
             stopSelf(serviceStartId);
         }
     }

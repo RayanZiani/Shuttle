@@ -12,7 +12,7 @@ import com.simplecity.amp_library.R
 import com.simplecity.amp_library.model.Genre
 import com.simplecity.amp_library.model.Playlist
 import com.simplecity.amp_library.model.Song
-import com.simplecity.amp_library.ui.adapters.SectionedAdapter
+import com.simplecity.amp_library.ui.adapters.FastScrollSectionedAdapter
 import com.simplecity.amp_library.ui.common.BaseFragment
 import com.simplecity.amp_library.ui.modelviews.EmptyView
 import com.simplecity.amp_library.ui.modelviews.GenreView
@@ -37,7 +37,7 @@ class GenreListFragment :
 
     private lateinit var recyclerView: FastScrollRecyclerView
 
-    private lateinit var adapter: SectionedAdapter
+    private lateinit var adapter: FastScrollSectionedAdapter
 
     private var refreshDisposable: Disposable? = null
 
@@ -63,7 +63,7 @@ class GenreListFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        adapter = SectionedAdapter()
+        adapter = FastScrollSectionedAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

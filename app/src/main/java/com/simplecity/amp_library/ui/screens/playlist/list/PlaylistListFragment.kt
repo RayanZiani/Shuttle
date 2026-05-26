@@ -36,7 +36,7 @@ class PlaylistListFragment :
 
     private var playlistClickListener: PlaylistClickListener? = null
 
-    private val refreshDisposable: Disposable? = null
+    private val refreshDisposable: Disposable = io.reactivex.disposables.Disposables.disposed()
 
     private val disposables = CompositeDisposable()
 
@@ -89,7 +89,7 @@ class PlaylistListFragment :
     override fun onPause() {
         super.onPause()
 
-        refreshDisposable?.dispose()
+        refreshDisposable.dispose()
 
         disposables.clear()
     }

@@ -79,6 +79,7 @@ public class WidgetProviderExtraLarge extends BaseWidgetProvider {
     }
 
     @Override
+    @SuppressWarnings("java:S6541")
     public void update(MusicService service, SharedPreferences sharedPreferences, int[] appWidgetIds, boolean updateArtwork) {
 
         if (appWidgetIds == null) {

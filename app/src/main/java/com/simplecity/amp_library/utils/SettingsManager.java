@@ -54,7 +54,7 @@ public class SettingsManager extends BaseSettingsManager {
     public static String KEY_PREF_WHITELIST = "pref_whitelist_view";
 
     // Playback
-    public static String KEY_PREF_REMEMBER_SHUFFLE = "pref_remember_shuffle";
+    public static final String KEY_PREF_REMEMBER_SHUFFLE = "pref_remember_shuffle";
 
     // Upgrade
     public static String KEY_PREF_UPGRADE = "pref_upgrade";

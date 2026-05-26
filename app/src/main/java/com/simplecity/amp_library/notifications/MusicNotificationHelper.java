@@ -167,6 +167,7 @@ public class MusicNotificationHelper extends NotificationHelper {
                 }));
     }
 
+    @SuppressWarnings("java:S107")
     public boolean startForeground(
             Service service,
             @NonNull Repository.PlaylistsRepository playlistsRepository,

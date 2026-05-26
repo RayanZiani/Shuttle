@@ -18,7 +18,7 @@ import com.simplecity.amp_library.utils.sorting.SortManager;
 import java.util.Arrays;
 import java.util.List;
 
-public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implements SectionedView {
+public class AlbumView extends MultiItemView<AlbumView.ViewHolder> implements SectionedView {
 
     public interface ClickListener {
 
@@ -129,7 +129,7 @@ public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implem
 
         requestManager.load(album)
                 .listener(getViewType() == ViewType.ALBUM_PALETTE ? GlidePalette.with(album.getArtworkKey())
-                        .use(GlidePalette.Profile.MUTED_DARK)
+                        .use(com.github.florent37.glidepalette.BitmapPalette.Profile.MUTED_DARK)
                         .intoBackground(holder.bottomContainer)
                         .crossfade(true)
                         : null)
@@ -196,7 +196,7 @@ public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implem
         }
 
         if (requiresSubstring) {
-            if (!TextUtils.isEmpty(string)) {
+            if (string != null && string.length() > 0) {
                 string = string.substring(0, 1).toUpperCase();
             } else {
                 string = " ";
